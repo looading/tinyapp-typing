@@ -40,12 +40,12 @@ declare function getCurrentPages(): any;
 
 //#region namespace my
 declare namespace my {
-  interface Error {
+  export interface Error {
     error: number|string;
     msg: string;
   }
 
-  interface commonParams<T> {
+  export interface commonParams<T> {
     success?: (res?: T) => void;
     fail?: (error?: Error | any) => void;
     complete?: (res?: any) => void;
@@ -53,23 +53,23 @@ declare namespace my {
   }
 
   //#region Navigation Bar
-  interface NavigateToParams extends commonParams<null> {
+  export interface NavigateToParams extends commonParams<null> {
     url: string;
   }
   export function navigateTo(params: NavigateToParams): void;
 
-  type RedirectToParams = NavigateToParams;
+  export type RedirectToParams = NavigateToParams;
   export function redirectTo(params: RedirectToParams): void;
 
-  interface NavigateBackParams extends commonParams<null> {
+  export interface NavigateBackParams extends commonParams<null> {
     delta: number;
   }
   export function navigateBack(params: NavigateBackParams): void;
 
-  type RelaunchParams = NavigateToParams;
+  export type RelaunchParams = NavigateToParams;
   export function reLaunch(params: RelaunchParams): void;
 
-  interface SetNavigationBarParams extends commonParams<null> {
+  export interface SetNavigationBarParams extends commonParams<null> {
     title?: string;
     backgroundColor?: string;
     borderBottomColor?: string;
@@ -82,10 +82,10 @@ declare namespace my {
   //#endregion
 
   //#region Tab Bar
-  type SwitchTabParams = NavigateToParams;
+  export type SwitchTabParams = NavigateToParams;
   export function switchTab(params: SwitchTabParams): void;
 
-  interface AlertParams extends commonParams<null> {
+  export interface AlertParams extends commonParams<null> {
     title?: string;
     content?: string;
     buttonText?: string;
@@ -94,21 +94,24 @@ declare namespace my {
   //#endregion
 
   //#region Interactive feedback
-  interface ConfirmParams extends commonParams<{ confirm: boolean }> {
+  export interface ConfirmSuccess {
+    confirm: boolean;
+  }
+  export interface ConfirmParams extends commonParams<ConfirmSuccess> {
     title?: string;
     content?: string;
     confirmButtonText?: string;
     cancelButtonText?: string;
   }
   export function confirm(params: ConfirmParams): void;
-  interface ShowToastParams extends commonParams<null> {
+  export interface ShowToastParams extends commonParams<null> {
     content?: string;
     delay?: number;
   }
   export function showToast(params: ShowToastParams): void;
   export function hideToast(): void;
 
-  interface ShowLoadingParams extends commonParams<null> {
+  export interface ShowLoadingParams extends commonParams<null> {
     type?: string;
     content?: string;
     duration?: number;
@@ -119,7 +122,10 @@ declare namespace my {
   export function showNavigationBarLoading(): void;
   export function hideNavigationBarLoading(): void;
 
-  interface ShowActionSheetParams extends commonParams<{ index: number }> {
+  export interface ShowActionSheetSuccess {
+    index: number;
+  }
+  export interface ShowActionSheetParams extends commonParams<ShowActionSheetSuccess> {
     title?: string;
     items: string[];
     cancelButtonText?: string;
@@ -134,36 +140,39 @@ declare namespace my {
   //#endregion
 
   //#region Contact
-  interface ChoosePhoneContactSuccess {
+  export interface ChoosePhoneContactSuccess {
     name: string;
     mobile: string;
   }
-  type ChoosePhoneContactParams = commonParams<ChoosePhoneContactSuccess>;
+  export type ChoosePhoneContactParams = commonParams<ChoosePhoneContactSuccess>;
   export function choosePhoneContact(params: ChoosePhoneContactParams): void;
 
-  interface Contact {
+  export interface Contact {
     realName: string;
     mobile: string;
     email: string;
     avatar: string;
     userId: string;
   }
-  interface Contacts {
+  export interface Contacts {
     contacts: Contact[];
   }
-  interface ChooseAlipayContactParams extends commonParams<Contacts>{
+  export interface ChooseAlipayContactParams extends commonParams<Contacts>{
     count?: number;
   }
   export function chooseAlipayContact(params: ChooseAlipayContactParams): void;
 
-  interface contactsDic {
+  export interface contactsDic {
     userId: string;
     avatar: string;
     mobile: string;
     realName: string;
     displayName: string;
   }
-  interface ChooseContactParams extends commonParams<{ contactsDicArray: contactsDic[] }> {
+  interface ChooseContactSuccess {
+    contactsDicArray: contactsDic[];
+  }
+  export interface ChooseContactParams extends commonParams<ChooseContactSuccess> {
     chooseType: 'single' | 'multi';
     includeMobileContactMode?: string;
     includeMe?: boolean;
@@ -174,16 +183,16 @@ declare namespace my {
   //#endregion
 
   //#region Choose City
-  interface City {
+  export interface City {
     city: string;
     adCode: string;
     spell: string;
   }
-  interface ChooseCitySuccess {
+  export interface ChooseCitySuccess {
     city: string;
     adCode: string;
   }
-  interface ChooseCityParams extends commonParams<ChooseCitySuccess> {
+  export interface ChooseCityParams extends commonParams<ChooseCitySuccess> {
     showLocatedCity?: boolean;
     showHotCities?: boolean;
     cities?: City[];
@@ -193,10 +202,10 @@ declare namespace my {
   //#endregion
 
   //#region Choose Date
-  interface DatePickerSuccess {
+  export interface DatePickerSuccess {
     date: string;
   }
-  interface DatePickerParams extends commonParams<DatePickerSuccess> {
+  export interface DatePickerParams extends commonParams<DatePickerSuccess> {
     format?: 'yyyy-MM-dd' | 'HH:mm' | 'yyyy-MM-dd HH:mm' | 'yyyy-MM' | 'yyyy' | string;
     currentDate?: string;
     startDate?: string;
@@ -206,7 +215,7 @@ declare namespace my {
   //#endregion
 
   //#region Animation
-  interface Animation {
+  export interface Animation {
     opacity(value: number): Animation;
     backgroundColor(color: string): Animation;
     width(length: number | string): Animation;
@@ -244,7 +253,7 @@ declare namespace my {
     export(): any;
   }
 
-  interface AnimationOptions {
+  export interface AnimationOptions {
     duration?: number;
     timingFunction?: "linear" | "ease" | "ease-in" | "ease-in-out" | "ease-out" | "step-start" | "step-end" | string;
     delay?: number;
@@ -254,7 +263,7 @@ declare namespace my {
   //endregion
 
   //#region Canvas
-  interface ToTempFilePathParams extends commonParams<string> {
+  export interface ToTempFilePathParams extends commonParams<string> {
     x?: number;
     y?: number;
     width?: number;
@@ -262,7 +271,7 @@ declare namespace my {
     destWidth?: number;
     destHeight?: number;
   }
-  interface CanvasContext {
+  export interface CanvasContext {
     toTempFilePath(params: ToTempFilePathParams): void;
     setTextAlign(params: "left" | "right" | "center" | "start" | "end" | string): void;
     setTextBaseline(params: "top" | "hanging" | "middle" | "alphabetic" | "ideographic" | "bottom" | string): void;
@@ -305,11 +314,11 @@ declare namespace my {
   //#endregion
 
   //#region Map
-  interface GetCenterLocationSuccess {
+  export interface GetCenterLocationSuccess {
     longitude: string;
     latitude: string;
   }
-  interface MapContext {
+  export interface MapContext {
     getCenterLocation(obj: commonParams<GetCenterLocationSuccess>): void;
     moveToLocation(): void;
   }
@@ -325,7 +334,7 @@ declare namespace my {
   //#endregion
 
   //#region Nodes Query
-  interface SelectorQuery {
+  export interface SelectorQuery {
     select(selector: string): SelectorQuery;
     selectAll(selector: string): SelectorQuery;
     selectViewport(): SelectorQuery;
@@ -337,20 +346,20 @@ declare namespace my {
   //#endregion
 
   //#region User Authorization
-  interface GetAuthCodeSuccess {
+  export interface GetAuthCodeSuccess {
     authCode: string;
     authErrorScope: any;
     authSucessScope: any[];
   }
-  type Scope = 'auth_base' | 'auth_user' | 'auth_zhima';
-  interface GetAuthCodeParams extends commonParams<GetAuthCodeSuccess> {
+  export type Scope = 'auth_base' | 'auth_user' | 'auth_zhima';
+  export interface GetAuthCodeParams extends commonParams<GetAuthCodeSuccess> {
     scopes: Scope | Scope[];
   }
   export function getAuthCode(params: GetAuthCodeParams): void;
   //#endregion
 
   //#region Client User Info
-  interface GetAuthUserInfoSuccess {
+  export interface GetAuthUserInfoSuccess {
     nickName: string;
     avatar: string;
   }
@@ -358,10 +367,10 @@ declare namespace my {
   //#endregion
 
   //#region Launch Pay Action
-  interface TradePaySuccess {
+  export interface TradePaySuccess {
     resultCode: string;
   }
-  interface TradePayParams extends commonParams<TradePaySuccess> {
+  export interface TradePayParams extends commonParams<TradePaySuccess> {
     orderStr?: string;
     tradeNO?: string;
   }
@@ -375,25 +384,25 @@ declare namespace my {
   export function openVoucherList(): void;
   export function openMerchantVoucherList(params: { partnerId: string }): void;
 
-  interface OpenVoucherDetailParams {
+  export interface OpenVoucherDetailParams {
     passId?: string;
     partnerId?: string;
     serialNumber?: string;
   }
   export function openVoucherDetail(params: OpenVoucherDetailParams): void;
 
-  type OpenKBVoucherDetailParams = OpenVoucherDetailParams
+  export type OpenKBVoucherDetailParams = OpenVoucherDetailParams
   export function openKBVoucherDetail(params: OpenKBVoucherDetailParams): void;
 
   export function openTicketList(): void;
   export function openMerchantTicketList(params: { partnerId: string }): void;
 
-  type OpenTicketDetailParams = OpenVoucherDetailParams;
+  export type OpenTicketDetailParams = OpenVoucherDetailParams;
   export function openTicketDetail(params: OpenTicketDetailParams): void;
   //#endregion
 
   //#region Card Auth
-  interface AddCardAuthSuccessResult {
+  export interface AddCardAuthSuccessResult {
     app_id: string;
     auth_code: string;
     state: string;
@@ -402,32 +411,32 @@ declare namespace my {
     request_id: string;
     out_string: string;
   }
-  interface AddCardAuthSuccess {
+  export interface AddCardAuthSuccess {
     success: boolean;
     resultStatus?: string;
     result?: AddCardAuthSuccessResult;
     code?: string;
   }
-  interface AddCardAuthParams extends commonParams<AddCardAuthSuccess> {
+  export interface AddCardAuthParams extends commonParams<AddCardAuthSuccess> {
     url: string;
   }
   export function addCardAuth(params: AddCardAuthParams): void;
   //#endregion
 
   //#region ZM verify
-  interface StartZMVerifySuccess {
+  export interface StartZMVerifySuccess {
     bizNo: string;
     passed: string;
     failed_reason: string;
   }
-  interface StartZMVerifyParams extends commonParams<StartZMVerifySuccess> {
+  export interface StartZMVerifyParams extends commonParams<StartZMVerifySuccess> {
     bizNo: string;
   }
   export function startZMVerify(params: StartZMVerifyParams): void;
   //endregion
 
   //#region ZM Credit Borrow
-  interface ZmCreditBorrowSuccess {
+  export interface ZmCreditBorrowSuccess {
     invoke_state: string;
     out_order_no: string;
     order_no: string;
@@ -435,7 +444,7 @@ declare namespace my {
     user_id: string;
     resultStatus: string;
   }
-  interface ZmCreditBorrowParams extends commonParams<ZmCreditBorrowSuccess> {
+  export interface ZmCreditBorrowParams extends commonParams<ZmCreditBorrowSuccess> {
     out_order_no: string;
     product_code: string;
     goods_name: string;
@@ -461,20 +470,24 @@ declare namespace my {
   //#endregion
 
   //#region Image
-  type Source = 'camera' | 'album';
-  interface ChooseImageParams extends commonParams<{ apFilePaths: string[] }> {
+  export type Source = 'camera' | 'album';
+
+  export interface ChooseImageSuccess {
+    apFilePaths: string[];
+  }
+  export interface ChooseImageParams extends commonParams<ChooseImageSuccess> {
     count?: number;
     sourceType: Source[]
   }
   export function chooseImage(params: ChooseImageParams): void;
 
-  interface PreviewImageParams extends commonParams<null> {
+  export interface PreviewImageParams extends commonParams<null> {
     urls: string[];
     current?: number;
   }
   export function previewImage(params: PreviewImageParams): void;
 
-  interface SaveImageParams extends commonParams<null> {
+  export interface SaveImageParams extends commonParams<null> {
     url: string;
     showActionSheet?: boolean;
   }
@@ -482,20 +495,23 @@ declare namespace my {
   //#endregion
 
   //#region Cache
-  interface SetStorageParams extends commonParams<null> {
+  export interface SetStorageParams extends commonParams<null> {
     key: string;
     data: any;
   }
   export function setStorage(params: SetStorageParams): void;
   export function setStorageSync(params: { key: string, data: any }): void;
 
-  interface GetStorageParams extends commonParams<{ data: any }> {
+  export interface GetStorageSuccess {
+    data: any;
+  }
+  export interface GetStorageParams extends commonParams<GetStorageSuccess> {
     key: string;
   }
   export function getStorage(params: GetStorageParams): void;
-  export function getStorageSync(params: { key: string }): { data: any };
+  export function getStorageSync(params: { key: string }): GetStorageSuccess;
 
-  interface RemoveStorageParams extends commonParams<null> {
+  export interface RemoveStorageParams extends commonParams<null> {
     key: string;
   }
   export function removeStorage(params: RemoveStorageParams): void;
@@ -504,33 +520,52 @@ declare namespace my {
   export function clearStorage(): void;
   export function clearStorageSync(): void;
 
-  interface GetStorageInfoSuccess {
+  export interface GetStorageInfoSuccess {
     keys: string[];
     currentSize: number;
     limitSize: number;
   }
   export function getStorageInfo(params: commonParams<GetStorageInfoSuccess>): void;
 
-  type getStorageInfoSyncSuccess = GetStorageInfoSuccess;
+  export type getStorageInfoSyncSuccess = GetStorageInfoSuccess;
   export function getStorageInfoSync(): getStorageInfoSyncSuccess;
   //#endregion
 
   //#region File
-  export function saveFile(params: commonParams<{ apFilePath: string; }>): { apFilePath: string; };
-  export function getSavedFileInfo(params: commonParams<{ apFilePath: string; }>): { size: number; createTime: number; };
+  export interface SaveFileSuccess {
+    apFilePath: string;
+  }
+  export interface SaveFileParams extends commonParams<SaveFileSuccess> {
+    apFilePath: string;
+  }
+  export interface GetSavedFileInfoSuccess {
+    size: number;
+    createTime: number;
+  }
+  export interface GetSavedFileInfoParams extends commonParams<GetSavedFileInfoSuccess> {
+    apFilePath: string;
+  }
+  export function saveFile(params: SaveFileParams): void;
+  export function getSavedFileInfo(params: GetSavedFileInfoParams);
 
-  interface File {
+  export interface File {
     size: number;
     createTime: number;
     apFilePath: string;
   }
-  export function getSavedFileList(params: commonParams<{ fileList: File[]; }>): void;
+  export interface GetSavedFileListSuccess {
+    fileList: File[];
+  }
+  export function getSavedFileList(params: commonParams<GetSavedFileListSuccess>): void;
 
-  export function removeSavedFile(params: commonParams<{ apFilePath: string; }>): void;
+  export interface RemoveSavedFileParams extends commonParams<null> {
+    apFilePath: string;
+  }
+  export function removeSavedFile(params: commonParams<RemoveSavedFileParams>): void;
   //#endregion
 
   //#region Location
-  interface GetLocationSuccess {
+  export interface GetLocationSuccess {
     longitude: string;
     latitude: string;
     accuracy: string;
@@ -545,13 +580,13 @@ declare namespace my {
     streetNumber: any;
     pois: any;
   }
-  interface GetLocationParams extends commonParams<GetLocationSuccess> {
+  export interface GetLocationParams extends commonParams<GetLocationSuccess> {
     cacheTimeout?: number;
     type?: 1 | 2 | 3;
   }
   export function getLocation(params: GetLocationParams): void;
 
-  interface OpenLocationParams extends commonParams<null> {
+  export interface OpenLocationParams extends commonParams<null> {
     longitude: string;
     latitude: string;
     name: string;
@@ -562,12 +597,12 @@ declare namespace my {
   //#endregion
 
   //#region Network
-  interface HttpRequestSuccess {
+  export interface HttpRequestSuccess {
     data: string | object;
     status: number;
     headers: object;
   }
-  interface HttpRequestParams extends commonParams<HttpRequestSuccess> {
+  export interface HttpRequestParams extends commonParams<HttpRequestSuccess> {
     url: string;
     headers?: object;
     method?: string;
@@ -577,8 +612,8 @@ declare namespace my {
   }
   export function httpRequest(params: HttpRequestParams): void;
 
-  type UploadFileSuccess = HttpRequestSuccess;
-  interface UploadFileParams extends commonParams<UploadFileSuccess> {
+  export type UploadFileSuccess = HttpRequestSuccess;
+  export interface UploadFileParams extends commonParams<UploadFileSuccess> {
     url: string;
     filePath: string;
     fileName: string;
@@ -588,20 +623,23 @@ declare namespace my {
   }
   export function uploadFile(params: UploadFileParams): void;
 
-  interface downloadFile extends commonParams<{ apFilePath: string }> {
+  export interface DownloadFileSuccess {
+    apFilePath: string;
+  }
+  export interface DownloadFileParams extends commonParams<DownloadFileSuccess> {
     url: string;
     header?: object;
   }
-  export function downloadFile(params: downloadFile): void;
+  export function downloadFile(params: DownloadFileParams): void;
 
-  interface ConnectSocketParams extends commonParams<null> {
+  export interface ConnectSocketParams extends commonParams<null> {
     url: string;
     data?: object;
     header?: object
   }
   export function connectSocket(params: ConnectSocketParams): void;
 
-  type Callback<T> = (res: T) => void;
+  export type Callback<T> = (res: T) => void;
 
   export function onSocketOpen(callback: Callback<any>): void;
   export function offSocketOpen(): void;
@@ -611,7 +649,7 @@ declare namespace my {
   export function onSocketClose(callback: Callback<null>): void;
   export function offSocketClose(): void;
 
-  interface SendSocketMessageParams extends commonParams<null> {
+  export interface SendSocketMessageParams extends commonParams<null> {
     data: string | ArrayBuffer;
   }
   export function sendSocketMessage(params: SendSocketMessageParams): void;
@@ -624,7 +662,7 @@ declare namespace my {
   export const SDKVersion: any;
   export function canIUse(key: string): boolean;
 
-  interface getSystemInfoSuccess {
+  export interface getSystemInfoSuccess {
     model: string;
     pixelRatio: number;
     windowWidth: number;
@@ -640,14 +678,21 @@ declare namespace my {
   }
   export function getSystemInfo(params: commonParams<getSystemInfoSuccess>): void;
 
-  type GetSystemInfoSyncResult = getSystemInfoSuccess;
+  export type GetSystemInfoSyncResult = getSystemInfoSuccess;
   export function getSystemInfoSync(): GetSystemInfoSyncResult;
 
-  export function getNetworkType(params: commonParams<{ networkAvailable: boolean; networkType: string; }>): void;
+  export interface GetNetworkTypeSuccess {
+    networkAvailable: boolean;
+    networkType: string;
+  }
+  export function getNetworkType(params: commonParams<GetNetworkTypeSuccess>): void;
 
-  export function getClipboard(params: commonParams<{ text: string; }>): void;
+  export interface GetClipboardSuccess {
+    text: string;
+  }
+  export function getClipboard(params: commonParams<GetClipboardSuccess>): void;
 
-  interface SetClipboardParams extends commonParams<null> {
+  export interface SetClipboardParams extends commonParams<null> {
     text: string;
   }
   export function setClipboard(params: SetClipboardParams): void;
@@ -655,46 +700,49 @@ declare namespace my {
   export function watchShake(params: commonParams<null>): void;
   export function vibrate(params: commonParams<null>): void;
 
-  interface makePhoneCallParams extends commonParams<null> {
+  export interface makePhoneCallParams extends commonParams<null> {
     number: number;
   }
   export function makePhoneCall(params: makePhoneCallParams): void;
 
-  export function getServerTime(params: commonParams<{ time: number; }>): void;
+  export interface GetServerTimeSuccess {
+    time: number;
+  }
+  export function getServerTime(params: commonParams<GetServerTimeSuccess>): void;
 
   export function onUserCaptureScreen(callback: Callback<null>): void;
   export function offUserCaptureScreen(): void;
 
-  interface setKeepScreenOnParams extends commonParams<null> {
+  export interface setKeepScreenOnParams extends commonParams<null> {
     keepScreenOn: boolean;
   }
   export function setKeepScreenOn(params: setKeepScreenOnParams): void;
 
   export function getScreenBrightness(params: commonParams<any>): void;
 
-  interface SetScreenBrightnessParams extends commonParams<any> {
+  export interface SetScreenBrightnessParams extends commonParams<any> {
     brightness: number;
   }
   export function setScreenBrightness(params: SetScreenBrightnessParams): void;
   //#endregion
 
   //#region Scan Code
-  interface ScanSuccess {
+  export interface ScanSuccess {
     code: string;
     qrCode?: string;
     barCode?: string;
   }
-  interface ScanParams extends commonParams<ScanSuccess> {
+  export interface ScanParams extends commonParams<ScanSuccess> {
     type: 'qr' | 'bar';
   }
   export function scan(params: ScanParams): void;
   //#endregion
 
   //region Data Safe
-  interface RsaSuccess {
+  export interface RsaSuccess {
     text: string;
   }
-  interface RsaParams extends commonParams<RsaSuccess> {
+  export interface RsaParams extends commonParams<RsaSuccess> {
     action: 'encrypy' | 'decrypt';
     text: string;
     key: string;
@@ -707,14 +755,22 @@ declare namespace my {
   //#endregion
 
   //region Bluetooth
-  interface OpenBluetoothAdapterParams extends commonParams<{ isSupportBLE: boolean }> {
+  export interface OpenBluetoothAdapterSuccess {
+    isSupportBLE: boolean;
+  }
+  export interface OpenBluetoothAdapterParams extends commonParams<OpenBluetoothAdapterSuccess> {
     autoClose?: boolean;
   }
   export function openBluetoothAdapter(params: OpenBluetoothAdapterParams): void;
   export function closeBluetoothAdapter(pramsn: commonParams<null>): void;
-  export function getBluetoothAdapterState(params: commonParams<{ discovering: boolean; available: boolean; }>): void;
 
-  interface StartBluetoothDevicesDiscoveryParams extends commonParams<null> {
+  export interface GetBluetoothAdapterStateSuccess {
+    discovering: boolean;
+    available: boolean;
+  }
+  export function getBluetoothAdapterState(params: commonParams<GetBluetoothAdapterStateSuccess>): void;
+
+  export interface StartBluetoothDevicesDiscoveryParams extends commonParams<null> {
     services?: string[];
     allowDuplicatesKey?: boolean;
     interval?: number;
@@ -722,7 +778,7 @@ declare namespace my {
   export function startBluetoothDevicesDiscovery(params: StartBluetoothDevicesDiscoveryParams): void;
   export function stopBluetoothDevicesDiscovery(params: commonParams<null>): void;
 
-  interface Device {
+  export interface Device {
     name: string;
     deviceName: string;
     localName: string;
@@ -731,22 +787,26 @@ declare namespace my {
     advertisData: string;
     manufacturerData: string;
   }
-  export function getBluetoothDevices(params: commonParams<{ devices: Device[] }>): void;
+  export interface GetBluetoothDevicesSuccess {
+    devices: Device[];
+  }
+  export function getBluetoothDevices(params: commonParams<GetBluetoothDevicesSuccess>): void;
 
-  interface GetConnectedBluetoothDevicesParams extends commonParams<{ devices: Device[] }> {
+  export type GetConnectedBluetoothDevicesSuccess = GetBluetoothDevicesSuccess;
+  export interface GetConnectedBluetoothDevicesParams extends commonParams<GetConnectedBluetoothDevicesSuccess> {
     services: string[];
   }
   export function getConnectedBluetoothDevices(params: GetConnectedBluetoothDevicesParams): void;
 
-  interface ConnectBLEDeviceParams extends commonParams<null> {
+  export interface ConnectBLEDeviceParams extends commonParams<null> {
     deviceId: string;
   }
   export function connectBLEDevice(params: ConnectBLEDeviceParams): void;
 
-  type DisconnectBLEDeviceParams = ConnectBLEDeviceParams;
+  export type DisconnectBLEDeviceParams = ConnectBLEDeviceParams;
   export function disconnectBLEDevice(params: DisconnectBLEDeviceParams): void;
 
-  interface WriteBLECharacteristicValueParams extends commonParams<null> {
+  export interface WriteBLECharacteristicValueParams extends commonParams<null> {
     deviceId: string;
     serviceId: string;
     characteristicId: string;
@@ -754,19 +814,19 @@ declare namespace my {
   }
   export function writeBLECharacteristicValue(params: WriteBLECharacteristicValueParams): void;
 
-  interface Characteristic {
+  export interface Characteristic {
     characteristicId: string;
     serviceId: string;
     value: string;
   }
-  interface ReadBLECharacteristicValueParams extends commonParams<Characteristic> {
+  export interface ReadBLECharacteristicValueParams extends commonParams<Characteristic> {
     deviceId: string;
     serviceId: string;
     characteristicId: string;
   }
   export function readBLECharacteristicValue(params: ReadBLECharacteristicValueParams): void;
 
-  interface NotifyBLECharacteristicValueChangeParams extends commonParams<null> {
+  export interface NotifyBLECharacteristicValueChangeParams extends commonParams<null> {
     deviceId: string;
     serviceId: string;
     characteristicId: string;
@@ -775,16 +835,16 @@ declare namespace my {
   }
   export function notifyBLECharacteristicValueChange(params: NotifyBLECharacteristicValueChangeParams): void;
 
-  interface Service {
+  export interface Service {
     serviceId: string;
     isPrimary: boolean;
   }
-  interface GetBLEDeviceServicesParams extends commonParams<Service> {
+  export interface GetBLEDeviceServicesParams extends commonParams<Service> {
     deviceId: string;
   }
   export function getBLEDeviceServices(params: GetBLEDeviceServicesParams): void;
 
-  interface GetBLEDeviceCharacteristicsDetail extends Characteristic {
+  export interface GetBLEDeviceCharacteristicsDetail extends Characteristic {
     properties: {
       read: boolean;
       write: boolean;
@@ -792,10 +852,10 @@ declare namespace my {
       indicate: boolean;
     };
   }
-  interface GetBLEDeviceCharacteristicsSuccess {
+  export interface GetBLEDeviceCharacteristicsSuccess {
     characteristics: GetBLEDeviceCharacteristicsDetail[];
   }
-  interface  GetBLEDeviceCharacteristicsParams extends commonParams<GetBLEDeviceCharacteristicsSuccess> {
+  export interface  GetBLEDeviceCharacteristicsParams extends commonParams<GetBLEDeviceCharacteristicsSuccess> {
     deviceId: string;
     serviceId: string;
   }
@@ -804,7 +864,7 @@ declare namespace my {
   export function onBluetoothDeviceFound(callback: Callback<{ devices: Device[] }>): void;
   export function offBluetoothDeviceFound(): void;
 
-  interface BLECharacteristicValueChange {
+  export interface BLECharacteristicValueChange {
     deviceId: string;
     serviceId: string;
     characteristicId: string;
