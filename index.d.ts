@@ -598,15 +598,15 @@ declare namespace my {
 
   //#region Network
   export interface HttpRequestSuccess {
-    data: string | object;
+    data: string | any;
     status: number;
-    headers: object;
+    headers: any;
   }
   export interface HttpRequestParams extends commonParams<HttpRequestSuccess> {
     url: string;
-    headers?: object;
+    headers?: any;
     method?: string;
-    data?: object;
+    data?: any;
     timeout?: number;
     dataType?: 'json' | 'text' | 'base64';
   }
@@ -618,8 +618,8 @@ declare namespace my {
     filePath: string;
     fileName: string;
     fileType: 'image' | 'video' | 'audio' | string;
-    header?: object;
-    formData?: object;
+    header?: any;
+    formData?: any;
   }
   export function uploadFile(params: UploadFileParams): void;
 
@@ -628,14 +628,14 @@ declare namespace my {
   }
   export interface DownloadFileParams extends commonParams<DownloadFileSuccess> {
     url: string;
-    header?: object;
+    header?: any;
   }
   export function downloadFile(params: DownloadFileParams): void;
 
   export interface ConnectSocketParams extends commonParams<null> {
     url: string;
-    data?: object;
-    header?: object
+    data?: any;
+    header?: any
   }
   export function connectSocket(params: ConnectSocketParams): void;
 
@@ -751,7 +751,7 @@ declare namespace my {
   //endregion
 
   //region Custom Analytic
-  export function reportAnalytics(eventName: string, data: object): void;
+  export function reportAnalytics(eventName: string, data: any): void;
   //#endregion
 
   //region Bluetooth
