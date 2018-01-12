@@ -485,6 +485,13 @@ declare namespace my {
   export function textRiskIdentification(params: TextRiskIdentificationParams): void;
   //#endregion
 
+  //#region Choose Address
+  interface ChooseAddressSuccess {
+    addressId: string;
+  }
+  export function chooseAddress(params: commonParams<ChooseAddressSuccess>): void;
+  //#region
+
 
 
   //#region Image
