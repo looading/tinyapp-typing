@@ -492,7 +492,19 @@ declare namespace my {
   export function chooseAddress(params: commonParams<ChooseAddressSuccess>): void;
   //#region
 
+  //#region MiniProgram Navigate
+  export interface NavigateToMiniProgramParams extends commonParams<null> {
+    appId: string;
+    path: string;
+    extraData?: any;
+  }
+  export function navigateToMiniProgram(params: NavigateToMiniProgramParams): void;
 
+  export interface NavigateBackMiniProgram extends commonParams<null> {
+    extraData?: any;
+  }
+  export function navigateBackMiniProgram(params: NavigateBackMiniProgram): void;
+  //#endregion
 
   //#region Image
   export type Source = 'camera' | 'album';
