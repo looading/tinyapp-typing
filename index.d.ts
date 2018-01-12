@@ -469,6 +469,24 @@ declare namespace my {
   export function zmCreditBorrow(params: ZmCreditBorrowParams): void;
   //#endregion
 
+  //#region Text Risk Identification
+  interface TextRiskIdentificationSuccess {
+    result: {
+      type: '0' | '1' | '2',
+      hitKeywords?: string[],
+      score?: string;
+    };
+  }
+  export interface TextRiskIdentificationParams extends commonParams<TextRiskIdentificationSuccess> {
+    content: string;
+    type: ('0' | '1' | '2')[];
+  }
+
+  export function textRiskIdentification(params: TextRiskIdentificationParams): void;
+  //#endregion
+
+
+
   //#region Image
   export type Source = 'camera' | 'album';
 
@@ -879,5 +897,6 @@ declare namespace my {
   export function onBluetoothAdapterStateChange(callback: Callback<{ available: boolean; discovering: boolean; }>): void;
   export function offBluetoothAdapterStateChange(): void;
   //endregion
+
 }
 //#endregion
