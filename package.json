@@ -1,6 +1,6 @@
 {
   "name": "tinyapp-typing",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "alipay miniapp api typing",
   "main": "",
   "typings": "index.d.ts",
