@@ -8,7 +8,7 @@ declare interface AppParams {
   onLaunch?: (LaunchOptions?: any) => void;
   onShow?: (Showoptions?: any) => void;
   onHide?: () => void;
-  onError?: () => void;
+  onError?: (err: any) => void;
   globalData?: {
     [props: string]: any;
   };
